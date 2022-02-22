@@ -33,18 +33,18 @@ Mutations:{
         },
         saveBook: async (parent, {input}, context) => {
             if(context.user){
-            const updateUser = await User.findByIdAndUpdate(
+            const updatedUser = await User.findByIdAndUpdate(
                 {_id: context.user._id},
                 {$addToSet:{ saveBook: input}},
                 {new: true, runValidators: true}
             );
-            return updateUser;
+            return updatedUser;
         }
         throw new AuthentificationError("Please log in");        
     },
     removeBook: async(parent, { bookId }, context) => {
         if (context.user){
-            const updateUser = await User.findOneAndUpdate(
+            const updatedUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
                 { $pull: { savedBook: { bookId: bookId}}},
                 {new: true}
