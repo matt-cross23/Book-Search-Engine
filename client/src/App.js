@@ -8,14 +8,10 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
+  createHttpLink,
 } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache()
-});
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
