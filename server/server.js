@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
-const {ApolloServer} = require('apollo-server-express')
+const {ApolloServer} = require('apollo-server-express');
+
+const { typeDefs, resolvers} = require('./schemas')
 
 const db = require('./config/connection');
 const routes = require('./routes');
@@ -10,6 +12,17 @@ const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  playground: {
+    settings: {
+      'editor.theme': 'light',
+    },
+    tabs: [
+      {
+        endpoint,
+        query: defaultQuery,
+      },
+    ]
+  }
 });
 server.applyMiddleware({app});
 
