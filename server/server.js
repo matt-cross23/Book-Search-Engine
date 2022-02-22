@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  
   playground: {
     settings: {
       'editor.theme': 'light',
@@ -45,4 +46,5 @@ app.use(routes);
 
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+  console.log('GraphQLplayground can be used at http://localhost:${PORT}${server.graphqlPath}`);
 });
