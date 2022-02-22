@@ -6,7 +6,7 @@ type User{
     username: String
     email: String
     bookCount: Int
-    saveBook: [Book]
+    savedBook: [Book]
 }
 type Book{
     _id: ID!
@@ -17,7 +17,7 @@ type Book{
     image: String
     link: String
 }
-input saveBook {
+input savedBook {
     bookID: String
     authors: [String]
     description: String
