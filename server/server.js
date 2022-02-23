@@ -1,10 +1,8 @@
 const express = require('express');
 const path = require('path');
 const {ApolloServer} = require('apollo-server-express');
-const { authMiddleware } = require('./utils/auth');
-
 const { typeDefs, resolvers} = require('./schemas')
-
+const { authMiddleware} = require('./utils/auth')
 const db = require('./config/connection');
 const routes = require('./routes');
 
@@ -13,18 +11,7 @@ const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  
-  playground: {
-    settings: {
-      'editor.theme': 'light',
-    },
-    tabs: [
-      {
-        endpoint,
-        query: defaultQuery,
-      },
-    ]
-  }
+  context: authMiddleware
 });
 server.applyMiddleware({app});
 
@@ -46,5 +33,5 @@ app.use(routes);
 
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-  console.log('GraphQLplayground can be used at http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(`GraphQLplayground can be used at http://localhost:${PORT}${server.graphqlPath}`);
 });
